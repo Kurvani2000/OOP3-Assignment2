@@ -2,7 +2,7 @@ package implementations;
 
 import utilities.StackADT;
 import java.util.EmptyStackException;
-import java.util.Iterator;
+import utilities.Iterator;
 
 public class MyStack<E> implements StackADT<E> 
 {
@@ -76,8 +76,23 @@ public class MyStack<E> implements StackADT<E>
     @Override
     public int search(E toFind) 
     {
-        int index = stack.indexOf(toFind);
-        return index == -1 ? -1 : stack.size() - index;
+        if (toFind == null) 
+        {
+            throw new NullPointerException("Cannot search for null element");
+        }
+        
+        int index = 0;
+        Iterator<E> it = stack.iterator();
+        
+        while (it.hasNext()) 
+        {
+            index++;
+            if (toFind.equals(it.next())) 
+            {
+                return index;
+            }
+        }
+        return -1;
     }
 
     @Override

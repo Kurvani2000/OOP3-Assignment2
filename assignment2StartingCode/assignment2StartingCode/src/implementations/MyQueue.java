@@ -2,7 +2,7 @@ package implementations;
 
 import utilities.QueueADT;
 import exceptions.EmptyQueueException;
-import java.util.Iterator;
+import utilities.Iterator;
 
 public class MyQueue<E> implements QueueADT<E> 
 {
@@ -64,7 +64,22 @@ public class MyQueue<E> implements QueueADT<E>
     @Override
     public int search(E toFind) 
     {
-        return queue.indexOf(toFind) + 1; // 1-based index
+        if (toFind == null) 
+        {
+            throw new NullPointerException("Cannot search for null element");
+        }
+        
+        int index = 0;
+        Iterator<E> it = queue.iterator();
+        while (it.hasNext()) 
+        {
+            index++;
+            if (toFind.equals(it.next())) 
+            {
+                return index;
+            }
+        }
+        return -1;
     }
 
     @Override
